@@ -357,7 +357,7 @@ const calculateCrimeScore = (policeDivisionWeight, communityExposure) =>{
       exposure = 1;
       break;
     case "limited":  
-      exposure = .85;
+      exposure = .9;
       break;
 
     default:
