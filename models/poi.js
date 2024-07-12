@@ -10,12 +10,12 @@ const pointOfInterestSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ["healthFacility", "supermarket", "emergencyservices"], // Customize categories
+    enum: ["healthFacility", "supermarket", "emergencyservices","education"], // Customize categories
     default: 'other'
   },
   type: {
     type: String,
-    enum: ["Hospital", "Health Centre", "Supermarket", "Police Station", "Fire Station", "Ambulance Service"], // Customize categories
+    enum: ["Hospital", "Health Centre", "Supermarket", "Police Station", "Fire Station", "Ambulance Service", "High School"], // Customize categories
     default: 'other'
   },
   location: {
@@ -31,6 +31,9 @@ const pointOfInterestSchema = new mongoose.Schema({
   },
   address: {
     type: String,
+  },
+  rating:{
+    type: Number,
   },
   locStatus:{
     type: Number,
