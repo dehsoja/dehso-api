@@ -204,7 +204,7 @@ const getAllPointsOfInterestWithinDistance = async (req, res) => {
                 }
               },
             },
-            { $project: { _id: 0, distanceInKm: 1, name: 1, location: 1, type: 1, category: 1 } } // Optionally project only the fields you need
+            { $project: { _id: 0, distanceInKm: 1, name: 1, location: 1, type: 1, category: 1, rating: 1 } } // Optionally project only the fields you need
           ]);
           
           
@@ -312,6 +312,7 @@ const poiScores = (poi, policeDivisionWeight, community) =>{
   let groceryScore= 0;
   let emergencyScore= 0;
   let overallScore = 0;
+  let educationScore= 0;
 
   if (community) {
 
@@ -332,15 +333,17 @@ const poiScores = (poi, policeDivisionWeight, community) =>{
     healthScore= calculateHealthScore(groupedPOIs["healthFacility"]);;
     groceryScore= calculateGroceryScore(groupedPOIs["supermarket"]);
     emergencyScore= calculateEmergencyScore(groupedPOIs["emergencyservices"]);;
+    educationScore= calculateEducationScore(groupedPOIs["education"]);;
   }
 
-  overallScore = (.5 * safetyScore) + (.15 * healthScore) + (.2 * emergencyScore) + (.15 * groceryScore);
+  overallScore = (.5 * safetyScore) + (.10 * healthScore) + (.2 * emergencyScore) + (.10 * groceryScore) + (.10 * educationScore);
 
   const scores= {
     safety: mapUtilities.convertDecimalToGrade(safetyScore),
     health: mapUtilities.convertDecimalToGrade(healthScore),
     emergency: mapUtilities.convertDecimalToGrade(emergencyScore),
     grocery: mapUtilities.convertDecimalToGrade(groceryScore),
+    education: mapUtilities.convertDecimalToGrade(educationScore),
     overall: mapUtilities.convertDecimalToGrade(overallScore),
   }
 
@@ -437,6 +440,32 @@ const calculateEmergencyScore = (poi) =>{
 
   }
   console.log(`Emergency Score: ${Math.round(score*100)/100}`)
+  return  Math.round(score*100)/100;
+
+}
+
+const calculateEducationScore = (poi) =>{
+  let score = 0
+
+  if(poi && poi.length > 0){
+    score = .7;
+
+    poi.forEach(element => {
+      // console.log(element)
+
+      if (element.rating >= .85 ) {
+        score += .03;
+      } else if (element.rating >= .5) {
+        score += .02;
+      }else{
+        score += .01;
+      }
+
+      score += .01;
+    });
+
+  }
+  console.log(`Education Score: ${Math.round(score*100)/100}`)
   return  Math.round(score*100)/100;
 
 }
