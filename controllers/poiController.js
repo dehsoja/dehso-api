@@ -313,6 +313,7 @@ const poiScores = (poi, policeDivisionWeight, community) =>{
   let emergencyScore= 0;
   let overallScore = 0;
   let educationScore= 0;
+  let financeScore= 0;
 
   if (community) {
 
@@ -330,13 +331,14 @@ const poiScores = (poi, policeDivisionWeight, community) =>{
       return groups;
     }, {});
     
-    healthScore= calculateHealthScore(groupedPOIs["healthFacility"]);;
+    healthScore= calculateHealthScore(groupedPOIs["healthFacility"]);
     groceryScore= calculateGroceryScore(groupedPOIs["supermarket"]);
-    emergencyScore= calculateEmergencyScore(groupedPOIs["emergencyservices"]);;
-    educationScore= calculateEducationScore(groupedPOIs["education"]);;
+    emergencyScore= calculateEmergencyScore(groupedPOIs["emergencyservices"]);
+    educationScore= calculateEducationScore(groupedPOIs["education"]);
+    financeScore= calculateFinanceScore(groupedPOIs["financialServices"]);
   }
 
-  overallScore = (.5 * safetyScore) + (.10 * healthScore) + (.2 * emergencyScore) + (.10 * groceryScore) + (.10 * educationScore);
+  overallScore = (.5 * safetyScore) + (.09 * healthScore) + (.2 * emergencyScore) + (.09 * groceryScore) + (.09 * educationScore) + (.03 * financeScore);
 
   const scores= {
     safety: mapUtilities.convertDecimalToGrade(safetyScore),
@@ -345,6 +347,7 @@ const poiScores = (poi, policeDivisionWeight, community) =>{
     grocery: mapUtilities.convertDecimalToGrade(groceryScore),
     education: mapUtilities.convertDecimalToGrade(educationScore),
     overall: mapUtilities.convertDecimalToGrade(overallScore),
+    finance: mapUtilities.convertDecimalToGrade(financeScore),
   }
 
   return scores
@@ -466,6 +469,32 @@ const calculateEducationScore = (poi) =>{
 
   }
   console.log(`Education Score: ${Math.round(score*100)/100}`)
+  return  Math.round(score*100)/100;
+
+}
+
+const calculateFinanceScore = (poi) =>{
+  let score = 0
+
+  if(poi && poi.length > 0){
+    score = .7;
+
+    poi.forEach(element => {
+
+      if (element.type === "Commercial Bank") score += .01;
+
+      if (element.distanceInKm >5 ) {
+        score += .001;
+      } else if (element.distanceInKm >1) {
+        score += .003;
+      }else{
+        score += .005;
+      }
+
+    });
+
+  }
+  console.log(`Finance Score: ${Math.round(score*100)/100}`)
   return  Math.round(score*100)/100;
 
 }
