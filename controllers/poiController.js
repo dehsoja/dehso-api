@@ -412,11 +412,11 @@ const calculateHealthScore = (poi) =>{
     poi.forEach(element => {
 
       if (element.distanceInKm >5 ) {
-        score += .024;
+        score += .012;
       } else if (element.distanceInKm >1) {
-        score += .05;
+        score += .025;
       }else{
-        score += .1;
+        score += .05;
       }
 
     });
