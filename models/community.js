@@ -14,7 +14,7 @@ const communitySchema = new mongoose.Schema({
     },
     code: {
       type: Number,
-      enum: [0, 1, 2], // 0: low, 1: moderate, 2: high
+      enum: [0, 1, 2], // 0: minimal, 1: limited, 2: tangible
       required: true,
       validate: {
         validator: function (value) {

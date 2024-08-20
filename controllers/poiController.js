@@ -320,7 +320,7 @@ const poiScores = (poi, policeDivisionWeight, community) =>{
     safetyScore= calculateCrimeScore(policeDivisionWeight, community.safety.exposure);
 
   } else {
-    safetyScore = calculateCrimeScore(policeDivisionWeight, "tangible");
+    safetyScore = calculateCrimeScore(policeDivisionWeight, "mixed");
   }
 
 
@@ -356,7 +356,7 @@ const poiScores = (poi, policeDivisionWeight, community) =>{
 
 const calculateCrimeScore = (policeDivisionWeight, communityExposure) =>{
 
-  let exposure = .75;
+  let exposure = .8;
 
   switch (communityExposure) {
     case "minimal":
@@ -364,6 +364,9 @@ const calculateCrimeScore = (policeDivisionWeight, communityExposure) =>{
       break;
     case "limited":  
       exposure = .9;
+      break;
+    case "tangible":  
+      exposure = .7;
       break;
 
     default:
