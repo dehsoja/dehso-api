@@ -410,16 +410,18 @@ const calculateHealthScore = (poi) =>{
   let score = 0
 
   if(poi && poi.length > 0){
-    score = .7;
+    score = .6;
 
     poi.forEach(element => {
 
+      if (element.type === "Hospital") score += .09;
+
       if (element.distanceInKm >5 ) {
-        score += .012;
+        score += .005;
       } else if (element.distanceInKm >1) {
-        score += .025;
+        score += .0075;
       }else{
-        score += .05;
+        score += .01;
       }
 
     });
