@@ -320,7 +320,7 @@ const poiScores = (poi, policeDivisionWeight, community) =>{
     safetyScore= calculateCrimeScore(policeDivisionWeight, community.safety.exposure);
 
   } else {
-    safetyScore = calculateCrimeScore(policeDivisionWeight, "tangible");
+    safetyScore = calculateCrimeScore(policeDivisionWeight, "mixed");
   }
 
 
@@ -356,7 +356,7 @@ const poiScores = (poi, policeDivisionWeight, community) =>{
 
 const calculateCrimeScore = (policeDivisionWeight, communityExposure) =>{
 
-  let exposure = .75;
+  let exposure = .8;
 
   switch (communityExposure) {
     case "minimal":
@@ -364,6 +364,9 @@ const calculateCrimeScore = (policeDivisionWeight, communityExposure) =>{
       break;
     case "limited":  
       exposure = .9;
+      break;
+    case "tangible":  
+      exposure = .7;
       break;
 
     default:
@@ -407,16 +410,18 @@ const calculateHealthScore = (poi) =>{
   let score = 0
 
   if(poi && poi.length > 0){
-    score = .7;
+    score = .6;
 
     poi.forEach(element => {
 
+      if (element.type === "Hospital") score += .09;
+
       if (element.distanceInKm >5 ) {
-        score += .012;
+        score += .005;
       } else if (element.distanceInKm >1) {
-        score += .025;
+        score += .0075;
       }else{
-        score += .05;
+        score += .01;
       }
 
     });
