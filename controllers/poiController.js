@@ -338,7 +338,7 @@ const poiScores = (poi, policeDivisionWeight, community) =>{
     financeScore= calculateFinanceScore(groupedPOIs["financialServices"]);
   }
 
-  overallScore = (.5 * safetyScore) + (.09 * healthScore) + (.2 * emergencyScore) + (.09 * groceryScore) + (.03 * educationScore) + (.09 * financeScore);
+  overallScore = (.55 * safetyScore) + (.09 * healthScore) + (.2 * emergencyScore) + (.09 * groceryScore) + (.03 * educationScore) + (.04 * financeScore);
 
   const scores= {
     safety: mapUtilities.convertDecimalToGrade(safetyScore),
