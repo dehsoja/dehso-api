@@ -386,23 +386,27 @@ const calculateGroceryScore = (poi) =>{
   let score = 0
 
   if(poi && poi.length > 0){
-    score = .7;
+    score = .65;
 
     poi.forEach(element => {
 
       if (element.distanceInKm >5 ) {
-        score += .024;
+        score += .01;
       } else if (element.distanceInKm >1) {
-        score += .05;
+        score += .03;
       }else{
-        score += .1;
+        score += .05;
       }
 
     });
 
   }
-  console.log(`Grocery Score: ${Math.round(score*100)/100}`)
-  return  Math.round(score*100)/100;
+  
+  let r =  Math.round(score*100)/100;
+  console.log(`Grocery Score: ${r}`)
+  console.log(`Grocery Score Returned: ${(r > 1) ? 1:r}`)
+  return (r > 1) ? 1:r;
+
 
 }
 
@@ -419,16 +423,22 @@ const calculateHealthScore = (poi) =>{
       if (element.distanceInKm >5 ) {
         score += .005;
       } else if (element.distanceInKm >1) {
-        score += .0075;
+        score += .007;
       }else{
-        score += .01;
+        score += .009;
       }
 
     });
 
   }
-  console.log(`Health Score: ${Math.round(score*100)/100}`)
-  return  Math.round(score*100)/100;
+
+
+  let r =  Math.round(score*100)/100;
+  console.log(`Health Score: ${r}`)
+  console.log(`Health Score Returned: ${(r > 1) ? 1:r}`)
+  return (r > 1) ? 1:r;
+
+  
 
 }
 
@@ -436,19 +446,22 @@ const calculateEmergencyScore = (poi) =>{
   let score = 0
 
   if(poi && poi.length > 0){
-    score = .6;
+    score = .55;
 
-    if(poi.some(item => item.type === "Police Station")) score += .065;
-    if(poi.some(item => item.type === "Fire Station")) score += .065;
-    if(poi.some(item => item.type === "Ambulance Service")) score += .065;
+    if(poi.some(item => item.type === "Police Station")) score += .055;
+    if(poi.some(item => item.type === "Fire Station")) score += .055;
+    if(poi.some(item => item.type === "Ambulance Service")) score += .055;
 
     poi.forEach(element => {
-      score += .035;
+      score += .025;
     });
 
   }
-  console.log(`Emergency Score: ${Math.round(score*100)/100}`)
-  return  Math.round(score*100)/100;
+
+  let r =  Math.round(score*100)/100;
+  console.log(`Emergency Score: ${r}`)
+  console.log(`Emergency Score Returned: ${(r > 1) ? 1:r}`)
+  return (r > 1) ? 1:r;
 
 }
 
@@ -456,7 +469,7 @@ const calculateEducationScore = (poi) =>{
   let score = 0
 
   if(poi && poi.length > 0){
-    score = .7;
+    score = .65;
 
     poi.forEach(element => {
       // console.log(element)
@@ -464,17 +477,21 @@ const calculateEducationScore = (poi) =>{
       if (element.rating >= .85 ) {
         score += .03;
       } else if (element.rating >= .5) {
-        score += .02;
-      }else{
         score += .01;
+      }else{
+        score += .005;
       }
 
       score += .01;
     });
 
   }
-  console.log(`Education Score: ${Math.round(score*100)/100}`)
-  return  Math.round(score*100)/100;
+  
+
+  let r =  Math.round(score*100)/100;
+  console.log(`Education Score: ${r}`)
+  console.log(`Education Score Returned: ${(r > 1) ? 1:r}`)
+  return (r > 1) ? 1:r;
 
 }
 
@@ -482,7 +499,7 @@ const calculateFinanceScore = (poi) =>{
   let score = 0
 
   if(poi && poi.length > 0){
-    score = .7;
+    score = .65;
 
     poi.forEach(element => {
 
@@ -499,8 +516,11 @@ const calculateFinanceScore = (poi) =>{
     });
 
   }
-  console.log(`Finance Score: ${Math.round(score*100)/100}`)
-  return  Math.round(score*100)/100;
+  
+  let r =  Math.round(score*100)/100;
+  console.log(`Finance Score: ${r}`)
+  console.log(`Finance Score Returned: ${(r > 1) ? 1:r}`)
+  return (r > 1) ? 1:r;
 
 }
 
