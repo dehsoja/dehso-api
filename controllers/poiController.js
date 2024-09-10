@@ -275,37 +275,6 @@ const getAllPOIs = async (req, res) => {
   }
 };
 
-// Mock Get all POIs
-const getAllMockPOIs = async (req, res) => {
-    
-    const updatedPoi = mapUtilities.addDistance({lat: 17.989396604836585, lng: -76.98062656151025,}, poi)
-    
-    try {
-      res.json({pois: updatedPoi});
-    } catch (err) {
-      res.status(500).json({ message: "Something went wrong" });
-    }
-};
-
-// Mock Get Query POIs
-const getQueryMockPOIs = async (req, res) => {
-
-    const lat = parseFloat(req.params.lat);
-    const lng = parseFloat(req.params.lng);
-
-     // Check if both lat and lng are provided
-     if (!isNaN(lat) && !isNaN(lng)) {
-
-        const updatedPoi = mapUtilities.addDistance({lat: lat, lng: lng,}, poi)
-        res.json({pois: updatedPoi});
-
-    } else {
-        // Handle case where lat and/or lng are missing or invalid
-        res.status(400).json({ error: 'Invalid coordinates' });
-    }
-};
-
-
 const poiScores = (poi, policeDivisionWeight, community) =>{
   let safetyScore= 0;
   let healthScore= 0;
@@ -526,8 +495,6 @@ const calculateFinanceScore = (poi) =>{
 
 module.exports = {
   getAllPOIs,
-  getAllMockPOIs,
-  getQueryMockPOIs,
   createPointOfInterest,
   getAllPointsOfInterest,
   getAllPointsOfInterestWithinDistance,
