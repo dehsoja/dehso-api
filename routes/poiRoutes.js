@@ -1,14 +1,13 @@
 const express = require('express');
 const poiController = require('../controllers/poiController');
+const {verifyToken} = require('../utilities/authUtilities');
 
 const router = express.Router();
 
-router.get('/', poiController.getAllPOIs);
+router.get('/', verifyToken, poiController.getAllPOIs);
 router.get('/:lat/:lng', poiController.getAllPointsOfInterest);
 router.get('/distance/:lat/:lng', poiController.getAllPointsOfInterestWithinDistance);
-router.get('/mock', poiController.getAllMockPOIs);
-router.get('/mock/:lat/:lng', poiController.getQueryMockPOIs);
-router.post('/', poiController.createPointOfInterest);
+router.post('/', verifyToken, poiController.createPointOfInterest);
 // ... other routes for getPOIById, createPOI, etc.
 
 module.exports = router;
